@@ -1,10 +1,10 @@
 package com.ceiba;
 
-import static org.junit.Assert.fail;
+import org.junit.Assert;
 
 import java.util.function.Supplier;
 
-import org.junit.Assert;
+import static org.junit.Assert.fail;
 
 public class BasePrueba {
 
@@ -23,6 +23,17 @@ public class BasePrueba {
     }
 
     public static void assertThrows(Thunk thunk, Class<? extends Exception> exception, String message) {
+        try {
+            thunk.execute();
+            fail();
+        } catch (Exception e) {
+            Assert.assertTrue(SE_ESPERABA_LA_EXCEPCION + exception.getCanonicalName() + PERO_FUE_LANZADA
+                    + e.getClass().getCanonicalName(), exception.isInstance(e));
+            Assert.assertTrue(e.getMessage().contains(message));
+        }
+    }
+
+    public static void assertEquals(Thunk thunk, Class<? extends Exception> exception, String message) {
         try {
             thunk.execute();
             fail();
