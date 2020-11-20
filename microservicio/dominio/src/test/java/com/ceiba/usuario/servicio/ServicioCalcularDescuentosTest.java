@@ -59,10 +59,7 @@ public class ServicioCalcularDescuentosTest {
             // arrange
             ServiciosAutoMotorTestDataBuilder serviciosAutoMotorTestDataBuilder = new ServiciosAutoMotorTestDataBuilder();
             ServiciosAutoMotor serviciosAutoMotor = serviciosAutoMotorTestDataBuilder.conVecesAtendido(10).conServicios(
-                    "Lavado," +
-                            "Polichado," +
-                            "Cambio de Aceite," +
-                            "Balanceo"
+                    "Lavado,Polichado,Cambio de Aceite,Balanceo"
             ).conPrecios(new double[] {8.500, 12.000, 20.000, 18.000}).build();
 
             ServicioCalcularDescuentos servicioCalcularDescuentos = new ServicioCalcularDescuentos(
