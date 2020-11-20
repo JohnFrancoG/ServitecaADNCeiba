@@ -1,5 +1,7 @@
 package com.ceiba.usuario.servicio;
 
+import com.ceiba.usuario.modelo.entidad.ServiciosAutoMotor;
+import com.ceiba.usuario.servicio.testdatabuilder.ServiciosAutoMotorTestDataBuilder;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -7,54 +9,100 @@ public class ServicioCalcularDescuentosTest {
 
     @Test
     public void entregarDescuentoServicioMasBaratoTest() {
-        // arrange
-        double precios[] = {8.500,10.000};
-        ServicioCalcularDescuentos servicioCalcularDescuentos = new ServicioCalcularDescuentos(2,50, precios);
+        try {
+            // arrange
+            ServiciosAutoMotorTestDataBuilder serviciosAutoMotorTestDataBuilder = new ServiciosAutoMotorTestDataBuilder();
+            ServiciosAutoMotor serviciosAutoMotor = serviciosAutoMotorTestDataBuilder.build();
 
-        // act
-        double precioFinal = servicioCalcularDescuentos.CalcularDescuentos();
+            ServicioCalcularDescuentos servicioCalcularDescuentos = new ServicioCalcularDescuentos(
+                    serviciosAutoMotor.getVecesAtendido(),
+                    serviciosAutoMotor.getCantidadServicios(),
+                    serviciosAutoMotor.getPrecios()
+            );
 
-        //assert
-        Assert.assertEquals(10.000, precioFinal, 0.001);
+            // act
+            double precioFinal = servicioCalcularDescuentos.CalcularDescuentos();
+
+            //assert
+            Assert.assertEquals(12.000, precioFinal, 0.000);
+        } catch (Exception e) {
+            Assert.assertEquals(12.000, 0, 0.000);
+        }
     }
 
     @Test
     public void noEntregarDescuentoServicioMasBaratoTest() {
-        // arrange
-        double precios[] = {8.500,10.000};
-        ServicioCalcularDescuentos servicioCalcularDescuentos = new ServicioCalcularDescuentos(2,10, precios);
+        try {
+            // arrange
+            ServiciosAutoMotorTestDataBuilder serviciosAutoMotorTestDataBuilder = new ServiciosAutoMotorTestDataBuilder();
+            ServiciosAutoMotor serviciosAutoMotor = serviciosAutoMotorTestDataBuilder.conVecesAtendido(10).build();
 
-        // act
-        double precioFinal = servicioCalcularDescuentos.CalcularDescuentos();
+            ServicioCalcularDescuentos servicioCalcularDescuentos = new ServicioCalcularDescuentos(
+                    serviciosAutoMotor.getVecesAtendido(),
+                    serviciosAutoMotor.getCantidadServicios(),
+                    serviciosAutoMotor.getPrecios()
+            );
 
-        //assert
-        Assert.assertEquals(18.500, precioFinal, 0.001);
+            // act
+            double precioFinal = servicioCalcularDescuentos.CalcularDescuentos();
+
+            //assert
+            Assert.assertEquals(20.500, precioFinal, 0.000);
+        } catch (Exception e) {
+            Assert.assertEquals(20.500, 0, 0.000);
+        }
     }
 
     @Test
     public void entregarDescuentoQuincePorCientoTest() {
-        // arrange
-        double precios[] = {8.500,10.000, 15.000, 18.000};
-        ServicioCalcularDescuentos servicioCalcularDescuentos = new ServicioCalcularDescuentos(4,10, precios);
+        try {
+            // arrange
+            ServiciosAutoMotorTestDataBuilder serviciosAutoMotorTestDataBuilder = new ServiciosAutoMotorTestDataBuilder();
+            ServiciosAutoMotor serviciosAutoMotor = serviciosAutoMotorTestDataBuilder.conVecesAtendido(10).conServicios(
+                    "Lavado," +
+                            "Polichado," +
+                            "Cambio de Aceite," +
+                            "Balanceo"
+            ).conPrecios(new double[] {8.500, 12.000, 20.000, 18.000}).build();
 
-        // act
-        double precioFinal = servicioCalcularDescuentos.CalcularDescuentos();
+            ServicioCalcularDescuentos servicioCalcularDescuentos = new ServicioCalcularDescuentos(
+                    serviciosAutoMotor.getVecesAtendido(),
+                    serviciosAutoMotor.getCantidadServicios(),
+                    serviciosAutoMotor.getPrecios()
+            );
 
-        //assert
-        Assert.assertEquals(43.775, precioFinal, 0.001);
+            // act
+            double precioFinal = servicioCalcularDescuentos.CalcularDescuentos();
+
+            //assert
+            Assert.assertEquals(49.725, precioFinal, 0.000);
+        } catch (Exception e) {
+            Assert.assertEquals(49.725, 0, 0.000);
+        }
     }
 
     @Test
     public void noEntregarDescuentoQuincePorCientoTest() {
-        // arrange
-        double precios[] = {8.500,10.000, 15.000};
-        ServicioCalcularDescuentos servicioCalcularDescuentos = new ServicioCalcularDescuentos(3,10, precios);
+        try {
+            // arrange
+            ServiciosAutoMotorTestDataBuilder serviciosAutoMotorTestDataBuilder = new ServiciosAutoMotorTestDataBuilder();
+            ServiciosAutoMotor serviciosAutoMotor = serviciosAutoMotorTestDataBuilder.conVecesAtendido(10).conServicios(
+                    "Lavado,Polichado"
+            ).conPrecios(new double[] {8.500, 12.000}).build();
 
-        // act
-        double precioFinal = servicioCalcularDescuentos.CalcularDescuentos();
+            ServicioCalcularDescuentos servicioCalcularDescuentos = new ServicioCalcularDescuentos(
+                    serviciosAutoMotor.getVecesAtendido(),
+                    serviciosAutoMotor.getCantidadServicios(),
+                    serviciosAutoMotor.getPrecios()
+            );
 
-        //assert
-        Assert.assertEquals(33.500, precioFinal, 0.001);
+            // act
+            double precioFinal = servicioCalcularDescuentos.CalcularDescuentos();
+
+            //assert
+            Assert.assertEquals(20.500, precioFinal, 0.000);
+        } catch (Exception e) {
+            Assert.assertEquals(20.500, 0, 0.000);
+        }
     }
-
 }

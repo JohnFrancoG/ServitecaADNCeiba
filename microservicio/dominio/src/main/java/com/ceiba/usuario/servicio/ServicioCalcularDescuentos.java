@@ -3,13 +3,14 @@ package com.ceiba.usuario.servicio;
 import java.util.Calendar;
 
 public class ServicioCalcularDescuentos {
-    static int serviciosTomados;
+
     static int vecesAtentido;
+    static int serviciosTomados;
     static double[] preciosPorServicios;
 
-    public  ServicioCalcularDescuentos(int serviciosTomados, int vecesAtentido, double[] preciosPorServicios) {
-        this.serviciosTomados = serviciosTomados;
+    public  ServicioCalcularDescuentos(int vecesAtentido, int serviciosTomados, double[] preciosPorServicios) {
         this.vecesAtentido = vecesAtentido;
+        this.serviciosTomados = serviciosTomados;
         this.preciosPorServicios = preciosPorServicios;
     }
 
@@ -46,7 +47,7 @@ public class ServicioCalcularDescuentos {
 
             return precioFinal;
         } catch (Exception e) {
-            return 0.0;
+            return 0;
         }
     }
 }
