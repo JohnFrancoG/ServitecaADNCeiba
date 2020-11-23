@@ -1,26 +1,30 @@
 package com.ceiba.usuario.servicio.testdatabuilder;
 
-import com.ceiba.usuario.modelo.entidad.ServiciosAutoMotor;
+import com.ceiba.usuario.modelo.entidad.AutoMotor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ServiciosAutoMotorTestDataBuilder {
 
-    private String nombreAutoMotor;
-    private String serviciosTomados;
+    private final String nombreAutoMotor;
+    private List<String> serviciosTomados;
     private int cantidadServicios;
     private int vecesAtendido;
-    double precios[];
+    double[] precios;
 
     public ServiciosAutoMotorTestDataBuilder() {
         nombreAutoMotor = "Automovil";
-        serviciosTomados = "Lavado,Polichado";
-        cantidadServicios = serviciosTomados.split(",").length;
+        serviciosTomados = new ArrayList<>();
+        serviciosTomados.add("Lavado");
+        serviciosTomados.add("Polichado");
         vecesAtendido = 50;
         precios = new double[] {8.500,12.000};
     }
 
-    public ServiciosAutoMotorTestDataBuilder conServicios(String serviciosTomados) {
-        this.serviciosTomados = serviciosTomados;
-        this.cantidadServicios = serviciosTomados.split(",").length;
+    public ServiciosAutoMotorTestDataBuilder conServicios(List<String> serviciosTomados) {
+        this.serviciosTomados = new ArrayList<>(serviciosTomados);
+        this.cantidadServicios = serviciosTomados.toArray().length;
         return this;
     }
 
@@ -29,12 +33,12 @@ public class ServiciosAutoMotorTestDataBuilder {
         return this;
     }
 
-    public ServiciosAutoMotorTestDataBuilder conPrecios(double precios[]) {
+    public ServiciosAutoMotorTestDataBuilder conPrecios(double[] precios) {
         this.precios = precios;
         return this;
     }
 
-    public ServiciosAutoMotor build() {
-        return new ServiciosAutoMotor(nombreAutoMotor, serviciosTomados, cantidadServicios, vecesAtendido, precios);
+    public AutoMotor build() {
+        return new AutoMotor(nombreAutoMotor, serviciosTomados, cantidadServicios, vecesAtendido, precios);
     }
 }

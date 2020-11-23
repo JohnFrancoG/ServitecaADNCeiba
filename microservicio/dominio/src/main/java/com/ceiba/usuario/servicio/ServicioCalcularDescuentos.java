@@ -1,9 +1,15 @@
 package com.ceiba.usuario.servicio;
 
+import java.util.Arrays;
 import java.util.Calendar;
 
 public class ServicioCalcularDescuentos {
 
+    public static final double DESCUENTO_PORCENTUAL_MAYOR = 0.15;
+    public static final int DIVISOR_MULTIPLO = 50;
+    public static final int SERVICIOS_MINIMOS_PARA_DESCUENTO_PORCENTUAL = 3;
+    public static final int RESIDUO = 0;
+    public static final double DESCUENTO_PORCENTUAL_MENOR = 0.05;
     static int vecesAtentido;
     static int serviciosTomados;
     static double[] preciosPorServicios;
@@ -14,40 +20,20 @@ public class ServicioCalcularDescuentos {
         this.preciosPorServicios = preciosPorServicios;
     }
 
-    public double CalcularDescuentos() {
+    public Double calcularDescuentos() {
         try {
-            double precioFinal = 0.0;
-            double ServicioMasBarato = 0.0;
+            double precioFinal = Arrays.stream(this.preciosPorServicios).sum();
+            double servicioMasBarato = Arrays.stream(this.preciosPorServicios).min().getAsDouble();
 
-            for(double precioServicio : this.preciosPorServicios) {
-                precioFinal += precioServicio;
-                if(ServicioMasBarato > 0.00) {
-                    if(precioServicio < ServicioMasBarato) {
-                        ServicioMasBarato = precioServicio;
-                    }
-                } else {
-                    ServicioMasBarato = precioServicio;
-                }
-            }
+            precioFinal = this.vecesAtentido % DIVISOR_MULTIPLO == RESIDUO ? precioFinal - servicioMasBarato: precioFinal;
 
-            //Si el número de atención del cliente es múltiplo de 50, no se le cobra el valor del servicio de menor costo.
-            if(this.vecesAtentido % 50 == 0) {
-                precioFinal += (ServicioMasBarato * -1);
-            }
+            precioFinal = this.serviciosTomados > SERVICIOS_MINIMOS_PARA_DESCUENTO_PORCENTUAL ? precioFinal - (precioFinal * DESCUENTO_PORCENTUAL_MAYOR) : precioFinal;
 
-            //Un automotor que solicita más de tres (3) servicios tendrá un descuento del 15% sobre el total de la liquidación.
-            if(this.serviciosTomados > 3) {
-                precioFinal = precioFinal - (precioFinal * 0.15);
-            }
-
-            //Si el día en que se presta el servicio fue un Miércoles el sistema deberá generar un descuento del 5% al total de la tarifa.
-            if(Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == Calendar.WEDNESDAY) {
-                precioFinal = precioFinal - (precioFinal * 0.05);
-            }
+            precioFinal = Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == Calendar.WEDNESDAY ? precioFinal - (precioFinal * DESCUENTO_PORCENTUAL_MENOR) : precioFinal;
 
             return precioFinal;
         } catch (Exception e) {
-            return 0;
+            return 0.0;
         }
     }
 }

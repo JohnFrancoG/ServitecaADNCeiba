@@ -19,27 +19,36 @@ pipeline {
   //Aquí comienzan los “items” del Pipeline
   stages{
     stage('Checkout') {
-      steps{
+	  steps{
         checkout([
-	  $class: 'GitSCM', 
-	  branches: [[name: '*/master']], 
-	  doGenerateSubmoduleConfigurations: false, 
-	  extensions: [], 
-	  gitTool: 'Default', 
-	  submoduleCfg: [], 
-	  userRemoteConfigs: [[
-	    credentialsId: 'GitHub_JohnFrancoG', 
-	    url:'https://github.com/JohnFrancoG/ServitecaADNCeiba'
-	  ]]
-	])
+	      $class: 'GitSCM', 
+	      branches: [[name: '*/master']], 
+	      doGenerateSubmoduleConfigurations: false, 
+	      extensions: [], 
+	      gitTool: 'Default', 
+	      submoduleCfg: [], 
+	      userRemoteConfigs: [[
+	        credentialsId: 'GitHub_JohnFrancoG', 
+	        url:'https://github.com/JohnFrancoG/ServitecaADNCeiba'
+	      ]]
+	    ])
+	    sh 'gradle --b ./microservicio/build.gradle clean'
       }
     }
     
-    stage('Compile & Unit Tests') {
+    stage('Compile') {
       steps{
-        echo "------------>Unit Tests<------------"
-
-      }
+	    echo "------------>Compile<------------"
+		sh 'gradle --b ./microservicio/build.gradle compileJava'
+	  }
+    }
+	
+	stage('Unit Tests') {
+	  steps{
+	    echo "------------>Unit Tests<------------"
+		sh 'gradle --b ./microservicio/build.gradle test'
+		junit '**/build/test-results/test/*.xml' //aggregate test results - JUnit
+	  }
     }
 
     stage('Static Code Analysis') {
@@ -54,6 +63,7 @@ sh "${tool name: 'SonarScanner', type:'hudson.plugins.sonar.SonarRunnerInstallat
     stage('Build') {
       steps {
         echo "------------>Build<------------"
+		sh 'gradle --b ./microservicio/build.gradle build -x test'
       }
     }  
   }
@@ -67,6 +77,12 @@ sh "${tool name: 'SonarScanner', type:'hudson.plugins.sonar.SonarRunnerInstallat
     }
     failure {
       echo 'This will run only if failed'
+	  //send notifications about a Pipeline to an email
+	  mail (
+	    to: 'john.franco@ceiba.com.co',
+	    subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
+	    body: "Something is wrong with ${env.BUILD_URL}"
+	  )
     }
     unstable {
       echo 'This will run only if the run was marked as unstable'
