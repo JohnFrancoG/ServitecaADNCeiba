@@ -4,6 +4,7 @@ import com.ceiba.usuario.modelo.entidad.AutoMotor;
 
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ServiciosAutoMotorTestDataBuilder {
@@ -25,6 +26,8 @@ public class ServiciosAutoMotorTestDataBuilder {
         serviciosTomados = new ArrayList<>();
         serviciosTomados.add("Lavado");
         serviciosTomados.add("Polichado");
+        horaDeIngreso = new Time(new Date().getTime());
+        horaDeSalida = new Time(new Date().getTime());
         vecesAtendido = 50;
         precios = new double[] {8.500,12.000};
     }

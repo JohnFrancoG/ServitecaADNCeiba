@@ -1,7 +1,6 @@
 package com.ceiba.usuario.servicio;
 
 import java.util.Arrays;
-import java.util.Calendar;
 
 public class ServicioCalcularDescuentos {
 
@@ -19,7 +18,7 @@ public class ServicioCalcularDescuentos {
 
         precioFinal = serviciosTomados > SERVICIOS_MINIMOS_PARA_DESCUENTO_PORCENTUAL ? precioFinal - (precioFinal * DESCUENTO_PORCENTUAL_MAYOR) : precioFinal;
 
-        precioFinal = Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == Calendar.WEDNESDAY ? precioFinal - (precioFinal * DESCUENTO_PORCENTUAL_MENOR) : precioFinal;
+        //precioFinal = Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == Calendar.WEDNESDAY ? precioFinal - (precioFinal * DESCUENTO_PORCENTUAL_MENOR) : precioFinal;
 
         return precioFinal;
     }
