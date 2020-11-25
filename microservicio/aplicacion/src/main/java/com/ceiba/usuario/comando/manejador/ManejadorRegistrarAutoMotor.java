@@ -1,20 +1,29 @@
 package com.ceiba.usuario.comando.manejador;
 
+import com.ceiba.usuario.comando.ComandoAutoMotor;
+import com.ceiba.usuario.comando.fabrica.FabricaAutoMotor;
+import com.ceiba.usuario.modelo.entidad.AutoMotor;
+import com.ceiba.usuario.servicio.ServicioRegistrarAutoMotor;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Component
 public class ManejadorRegistrarAutoMotor {
 
-    /*private final FabricaAutoMotor fabricaAutoMotor;
-    private final ServicioCalcularDescuentos servicioCalcularDescuentos;
+    private final FabricaAutoMotor fabricaAutoMotor;
+    private final ServicioRegistrarAutoMotor servicioRegistrarAutoMotor;
 
-    public ManejadorRegistrarAutoMotor(FabricaAutoMotor fabricaAutoMotor, ServicioCalcularDescuentos servicioCalcularDescuentos) {
+    public ManejadorRegistrarAutoMotor(FabricaAutoMotor fabricaAutoMotor, ServicioRegistrarAutoMotor servicioRegistrarAutoMotor) {
         this.fabricaAutoMotor = fabricaAutoMotor;
-        this.servicioCalcularDescuentos = servicioCalcularDescuentos;
+        this.servicioRegistrarAutoMotor = servicioRegistrarAutoMotor;
     }
 
-    @Override
-    public ComandoRespuesta<Long> ejecutar(ComandoAutoMotor comando) {
-        return null;
-    }*/
+    @Transactional
+    public List<String> ejecutar(ComandoAutoMotor comandoAutoMotor) {
+        AutoMotor autoMotor = this.fabricaAutoMotor.crear(comandoAutoMotor);
+        return this.servicioRegistrarAutoMotor.registrarAutoMotor(autoMotor);
+    }
+
 }

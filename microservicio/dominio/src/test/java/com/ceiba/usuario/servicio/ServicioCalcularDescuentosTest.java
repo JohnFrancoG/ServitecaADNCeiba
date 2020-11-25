@@ -27,14 +27,14 @@ public class ServicioCalcularDescuentosTest {
         ServiciosAutoMotorTestDataBuilder serviciosAutoMotorTestDataBuilder = new ServiciosAutoMotorTestDataBuilder();
         AutoMotor autoMotor = serviciosAutoMotorTestDataBuilder.build();
 
-        ServicioCalcularDescuentos servicioCalcularDescuentos = new ServicioCalcularDescuentos(
-                autoMotor.getVecesAtendido(),
-                autoMotor.getCantidadServicios(),
-                autoMotor.getPrecios()
-        );
+        ServicioCalcularDescuentos servicioCalcularDescuentos = new ServicioCalcularDescuentos();
 
         // act
-        double precioFinal = servicioCalcularDescuentos.calcularDescuentos();
+        double precioFinal = servicioCalcularDescuentos.calcularDescuentos(
+                autoMotor.getVecesAtendido(),
+                autoMotor.getServiciosTomados().toArray().length,
+                autoMotor.getPrecios()
+        );
 
         //assert
         Assert.assertEquals(PRECIO_ESPERADO_CON_DESCUENTO_SERVICIO_MAS_BARATO, precioFinal, DIFERENCIA_DE_DECIMALES);
@@ -46,14 +46,14 @@ public class ServicioCalcularDescuentosTest {
         ServiciosAutoMotorTestDataBuilder serviciosAutoMotorTestDataBuilder = new ServiciosAutoMotorTestDataBuilder();
         AutoMotor autoMotor = serviciosAutoMotorTestDataBuilder.conVecesAtendido(VECES_ATENDIDO).build();
 
-        ServicioCalcularDescuentos servicioCalcularDescuentos = new ServicioCalcularDescuentos(
-                autoMotor.getVecesAtendido(),
-                autoMotor.getCantidadServicios(),
-                autoMotor.getPrecios()
-        );
+        ServicioCalcularDescuentos servicioCalcularDescuentos = new ServicioCalcularDescuentos();
 
         // act
-        double precioFinal = servicioCalcularDescuentos.calcularDescuentos();
+        double precioFinal = servicioCalcularDescuentos.calcularDescuentos(
+                autoMotor.getVecesAtendido(),
+                autoMotor.getServiciosTomados().toArray().length,
+                autoMotor.getPrecios()
+        );
 
         //assert
         Assert.assertEquals(PRECIO_ESPERADO_SIN_DESCUENTO_SERVICIO_MAS_BARATO, precioFinal, DIFERENCIA_DE_DECIMALES);
@@ -67,14 +67,14 @@ public class ServicioCalcularDescuentosTest {
                 new ArrayList<>(Arrays.asList("Lavado", "Polichado", "Cambio de Aceite", "Balanceo"))
         ).conPrecios(new double[] {PRECIO_LAVADO, PRECIO_POLICHADO, PRECIO_CAMBIO_DE_ACEITE, PRECIO_BALANCEO}).build();
 
-        ServicioCalcularDescuentos servicioCalcularDescuentos = new ServicioCalcularDescuentos(
-                autoMotor.getVecesAtendido(),
-                autoMotor.getCantidadServicios(),
-                autoMotor.getPrecios()
-        );
+        ServicioCalcularDescuentos servicioCalcularDescuentos = new ServicioCalcularDescuentos();
 
         // act
-        double precioFinal = servicioCalcularDescuentos.calcularDescuentos();
+        double precioFinal = servicioCalcularDescuentos.calcularDescuentos(
+                autoMotor.getVecesAtendido(),
+                autoMotor.getServiciosTomados().toArray().length,
+                autoMotor.getPrecios()
+        );
 
         //assert
         Assert.assertEquals(PRECIO_ESPERADO_CON_DESCUENTO_QUINCE_PORCIENTO, precioFinal, DIFERENCIA_DE_DECIMALES);
@@ -88,14 +88,14 @@ public class ServicioCalcularDescuentosTest {
                 new ArrayList<>(Arrays.asList("Lavado", "Polichado"))
         ).conPrecios(new double[] {PRECIO_LAVADO, PRECIO_POLICHADO}).build();
 
-        ServicioCalcularDescuentos servicioCalcularDescuentos = new ServicioCalcularDescuentos(
-                autoMotor.getVecesAtendido(),
-                autoMotor.getCantidadServicios(),
-                autoMotor.getPrecios()
-        );
+        ServicioCalcularDescuentos servicioCalcularDescuentos = new ServicioCalcularDescuentos();
 
         // act
-        double precioFinal = servicioCalcularDescuentos.calcularDescuentos();
+        double precioFinal = servicioCalcularDescuentos.calcularDescuentos(
+                autoMotor.getVecesAtendido(),
+                autoMotor.getServiciosTomados().toArray().length,
+                autoMotor.getPrecios()
+        );
 
         //assert
         Assert.assertEquals(PRECIO_ESPERADO_SIN_DESCUENTO_QUINCE_PORCIENTO, precioFinal, DIFERENCIA_DE_DECIMALES);

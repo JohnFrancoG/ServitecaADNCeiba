@@ -39,6 +39,7 @@ public class ServiciosAutoMotorTestDataBuilder {
     }
 
     public AutoMotor build() {
-        return new AutoMotor(nombreAutoMotor, serviciosTomados, cantidadServicios, vecesAtendido, precios);
+        return null;
+        //return new AutoMotor(nombreAutoMotor, serviciosTomados, cantidadServicios, vecesAtendido, precios);
     }
 }

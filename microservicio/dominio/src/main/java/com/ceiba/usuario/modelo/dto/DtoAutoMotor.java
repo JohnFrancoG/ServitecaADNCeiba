@@ -1,19 +1,14 @@
-package com.ceiba.usuario.comando;
+package com.ceiba.usuario.modelo.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.sql.Time;
 import java.util.List;
 
 @Getter
-@Setter
 @AllArgsConstructor
-@NoArgsConstructor
-public class ComandoAutoMotor {
-
+public class DtoAutoMotor {
     private Long cedulaConductor;
     private String placaAutoMotor;
     private String tipoAutoMotor;

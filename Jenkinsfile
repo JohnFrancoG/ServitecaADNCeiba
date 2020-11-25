@@ -73,8 +73,9 @@ sh "${tool name: 'SonarScanner', type:'hudson.plugins.sonar.SonarRunnerInstallat
       echo 'This will always run'
     }
     success {
-      echo 'This will run only if successful'
-    }
+	  echo 'This will run only if successful'
+	  junit 'build/test-results/test/*.xml' → RUTA DE TUS ARCHIVOS .XML
+	}
     failure {
       echo 'This will run only if failed'
 	  //send notifications about a Pipeline to an email

@@ -16,7 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes= ApplicationMock.class)
 @WebMvcTest(ConsultaControladorUsuario.class)
-public class CalcularDescuentosControladorServitecaTest {
+public class ConsultaControladorServitecaTest {
 
     @Autowired
     private MockMvc mocMvc;

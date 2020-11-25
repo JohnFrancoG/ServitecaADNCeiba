@@ -9,9 +9,13 @@ public class FabricaAutoMotor {
 
     public AutoMotor crear (ComandoAutoMotor comandoAutoMotor){
         return  new AutoMotor(
-                comandoAutoMotor.getNombreAutoMotor(),
+                comandoAutoMotor.getCedulaConductor(),
+                comandoAutoMotor.getPlacaAutoMotor(),
+                comandoAutoMotor.getTipoAutoMotor(),
                 comandoAutoMotor.getServiciosTomados(),
-                comandoAutoMotor.getCantidadServicios(),
+                comandoAutoMotor.getHoraDeIngreso(),
+                comandoAutoMotor.getHoraDeSalida(),
+                comandoAutoMotor.getValorPorPagar(),
                 comandoAutoMotor.getVecesAtendido(),
                 comandoAutoMotor.getPrecios()
         );
