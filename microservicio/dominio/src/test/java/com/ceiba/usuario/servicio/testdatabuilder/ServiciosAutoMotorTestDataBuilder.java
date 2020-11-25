@@ -2,19 +2,26 @@ package com.ceiba.usuario.servicio.testdatabuilder;
 
 import com.ceiba.usuario.modelo.entidad.AutoMotor;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ServiciosAutoMotorTestDataBuilder {
 
-    private final String nombreAutoMotor;
+    private Long cedulaConductor;
+    private String placaAutoMotor;
+    private String tipoAutoMotor;
     private List<String> serviciosTomados;
-    private int cantidadServicios;
+    private Time horaDeIngreso;
+    private Time horaDeSalida;
+    private double valorPorPagar;
     private int vecesAtendido;
     double[] precios;
 
     public ServiciosAutoMotorTestDataBuilder() {
-        nombreAutoMotor = "Automovil";
+        cedulaConductor = 1152709223l;
+        placaAutoMotor = "RMJ-123";
+        tipoAutoMotor = "Automovil";
         serviciosTomados = new ArrayList<>();
         serviciosTomados.add("Lavado");
         serviciosTomados.add("Polichado");
@@ -24,7 +31,6 @@ public class ServiciosAutoMotorTestDataBuilder {
 
     public ServiciosAutoMotorTestDataBuilder conServicios(List<String> serviciosTomados) {
         this.serviciosTomados = new ArrayList<>(serviciosTomados);
-        this.cantidadServicios = serviciosTomados.toArray().length;
         return this;
     }
 
@@ -39,7 +45,16 @@ public class ServiciosAutoMotorTestDataBuilder {
     }
 
     public AutoMotor build() {
-        return null;
-        //return new AutoMotor(nombreAutoMotor, serviciosTomados, cantidadServicios, vecesAtendido, precios);
+        return new AutoMotor(
+                cedulaConductor,
+                placaAutoMotor,
+                tipoAutoMotor,
+                serviciosTomados,
+                horaDeIngreso,
+                horaDeSalida,
+                valorPorPagar,
+                vecesAtendido,
+                precios
+        );
     }
 }
