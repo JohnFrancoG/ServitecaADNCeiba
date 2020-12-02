@@ -11,6 +11,7 @@ public class TiendaTecnologicaApplicationTests {
 
 	@Test
 	public void contextLoads() {
+		TiendaTecnologicaApplication.main(new String[]{});
 	}
 
 }
