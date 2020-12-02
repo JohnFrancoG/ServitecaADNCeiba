@@ -32,7 +32,7 @@ pipeline {
 	        url:'https://github.com/JohnFrancoG/ServitecaADNCeiba'
 	      ]]
 	    ])
-	    sh 'gradle --b ./build.gradle clean'
+	    sh 'gradle --b ./backend-serviteca/build.gradle clean'
       }
     }
     
