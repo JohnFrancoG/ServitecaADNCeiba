@@ -46,7 +46,9 @@ pipeline {
 	stage('Unit Tests') {
 	  steps{
 	    echo "------------>Unit Tests<------------"
-	    	
+	    	sh 'gradle --b ./backend-serviteca/build.gradle test'
+	    	junit '**/build/test-results/test/*.xml' //aggregate test results - JUnit
+	    	sh 'gradle --b ./backend-serviteca/build.gradle jacocoTestReport'
 	  }
     }
 
