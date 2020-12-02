@@ -27,10 +27,6 @@ dependencies {
 	testCompile 'org.mockito:mockito-all:1.10.19'
 }
 
-test {
-	finalizedBy jacocoTestReport
-}
-
 jacocoTestReport {
 	reports {
 		xml.enabled true
